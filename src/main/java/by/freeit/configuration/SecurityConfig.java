@@ -61,15 +61,15 @@ public class SecurityConfig extends AbstractSecurityWebApplicationInitializer {
 
     @Bean
     public SecurityFilterChain getFilterChain(HttpSecurity httpSecurity) throws Exception {
-//        httpSecurity.authenticationProvider(authenticationProvider);
         return httpSecurity.authorizeHttpRequests(configure -> {
                     try {
                         configure
+                                .requestMatchers("/resources/**").permitAll()
                                 .requestMatchers("/").hasAnyAuthority("ADMIN", "USER")
                                 .requestMatchers("/addPatient/**").hasAuthority("ADMIN")
                                 .anyRequest().authenticated()
                                 .and()
-                                .formLogin()
+                                .formLogin().loginPage("/getLoginForm").loginProcessingUrl("/authenticate")
                                 .permitAll();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
@@ -77,7 +77,4 @@ public class SecurityConfig extends AbstractSecurityWebApplicationInitializer {
                 })
                 .build();
     }
-
-
-
 }
