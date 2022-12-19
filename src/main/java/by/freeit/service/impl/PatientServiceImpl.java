@@ -1,7 +1,8 @@
-package by.freeit.service;
+package by.freeit.service.impl;
 
 import by.freeit.model.Patient;
 import by.freeit.repository.PatientRepository;
+import by.freeit.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
